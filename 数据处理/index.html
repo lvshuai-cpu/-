@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>家教排课助手</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">TUTOR SCHEDULER</p>
+        <h1>家教排课助手</h1>
+      </div>
+      <div class="week-picker">
+        <label for="weekStart">本周从</label>
+        <input id="weekStart" type="date" aria-label="选择本周周一日期" />
+        <button id="todayButton" class="ghost-button" type="button">回到本周</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="overview" aria-label="本周概览">
+        <div class="stat-card">
+          <span>本周课程</span>
+          <strong id="classCount">0</strong>
+          <small>节</small>
+        </div>
+        <div class="stat-card">
+          <span>授课时长</span>
+          <strong id="hourCount">0</strong>
+          <small>小时</small>
+        </div>
+        <div class="stat-card wide">
+          <span>排课规则</span>
+          <strong>每天 8:00–21:00</strong>
+          <small>每节课固定 2 小时，可从整点开始</small>
+        </div>
+        <div class="stat-card plan-card">
+          <span>计划结束日</span>
+          <input id="planEnd" type="date" aria-label="课程计划结束日" required />
+          <small>缺课会自动顺延至此日期之后</small>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <aside class="panel form-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">NEW CLASS</p>
+              <h2>安排一节课</h2>
+            </div>
+          </div>
+
+          <form id="classForm">
+            <label>
+              学生姓名 <em>*</em>
+              <input id="student" name="student" maxlength="20" placeholder="例如：小明" required />
+            </label>
+
+            <label>
+              授课科目 <em>*</em>
+              <input id="subject" name="subject" maxlength="20" placeholder="例如：数学" required />
+            </label>
+
+            <div class="form-row">
+              <label>
+                星期 <em>*</em>
+                <select id="day" name="day" required></select>
+              </label>
+              <label>
+                开始时间 <em>*</em>
+                <select id="startTime" name="startTime" required></select>
+              </label>
+            </div>
+
+            <label>
+              上课形式
+              <select id="mode" name="mode">
+                <option value="线下">线下授课</option>
+                <option value="线上">线上授课</option>
+              </select>
+            </label>
+
+            <label>
+              备注
+              <textarea id="note" name="note" maxlength="60" rows="3" placeholder="地点、教材或本节课重点（选填）"></textarea>
+            </label>
+
+            <p id="formMessage" class="form-message" aria-live="polite"></p>
+            <button class="primary-button" type="submit">加入课程表</button>
+          </form>
+        </aside>
+
+        <section class="panel schedule-panel">
+          <div class="panel-heading schedule-heading">
+            <div>
+              <p class="section-kicker">WEEKLY VIEW</p>
+              <h2>本周课表</h2>
+            </div>
+            <p class="schedule-tip">在下方清单标注缺课；补课将自动顺延</p>
+          </div>
+          <div class="schedule-scroll">
+            <div id="schedule" class="schedule" aria-label="每周课程表"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel class-list-panel">
+        <div class="panel-heading list-heading">
+          <div>
+            <p class="section-kicker">ALL CLASSES</p>
+            <h2>课程清单</h2>
+          </div>
+          <button id="clearWeekButton" class="text-button" type="button">清空本周课程</button>
+        </div>
+        <div id="classList" class="class-list"></div>
+      </section>
+    </main>
+
+    <template id="classCardTemplate">
+      <article class="class-card" role="button" tabindex="0" title="点击删除这节课">
+        <span class="card-time"></span>
+        <strong class="card-student"></strong>
+        <span class="card-subject"></span>
+        <span class="card-status"></span>
+        <span class="card-mode"></span>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
